@@ -13,7 +13,9 @@ buildscript {
 
 fun property(name: String, defaultValue: String = ""): String {
     val envName = name.replace(".", "_").uppercase()
-    return System.getenv(envName) ?: project.findProperty(name)?.toString() ?: defaultValue
+    val result = System.getenv(envName) ?: project.findProperty(name)?.toString() ?: defaultValue
+    println("$name = $result")
+    return result
 }
 
 val description: String by lazy { property("project.description", project.description ?: "") }
