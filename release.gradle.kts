@@ -103,16 +103,16 @@ configure<io.github.gradlenexus.publishplugin.NexusPublishExtension> {
     repositories {
         sonatype {
             if (!sonatypeNexusUrl.isNullOrBlank()) {
-                nexusUrl.set(uri(sonatypeNexusUrl))
+                nexusUrl.set(uri(sonatypeNexusUrl!!))
             }
             if (!sonatypeSnapshotRepositoryUrl.isNullOrBlank()) {
-                snapshotRepositoryUrl.set(uri(sonatypeSnapshotRepositoryUrl))
+                snapshotRepositoryUrl.set(uri(sonatypeSnapshotRepositoryUrl!!))
             }
             if (!ossrhUsername.isNullOrBlank()) {
-                username.set(ossrhUsername)
+                username.set(ossrhUsername!!)
             }
             if (!ossrhPassword.isNullOrBlank()) {
-                password.set(ossrhPassword)
+                password.set(ossrhPassword!!)
             }
         }
     }
