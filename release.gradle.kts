@@ -22,7 +22,7 @@ val scmUrl: String by lazy { property("scm.url") }
 
 val scmConnection: String by lazy { property("scm.connection") }
 
-val scmDeveloperConnection: String by lazy { property("scm.developerConnection") }
+val scmDeveloperConnection: String by lazy { property("scm.developer.connection") }
 
 val licenseName: String by lazy { property("license.name") }
 
