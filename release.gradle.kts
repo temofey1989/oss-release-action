@@ -44,6 +44,11 @@ apply(plugin = "org.gradle.signing")
 //apply<org.gradle.plugins.signing.SigningPlugin>()
 apply<io.github.gradlenexus.publishplugin.NexusPublishPlugin>()
 
+configure<JavaPluginExtension> {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 configure<PublishingExtension> {
     publications {
         create<MavenPublication>("maven") {
@@ -97,16 +102,16 @@ configure<io.github.gradlenexus.publishplugin.NexusPublishExtension> {
     }
     repositories {
         sonatype {
-            if (sonatypeNexusUrl.isNotBlank()) {
+            if (!sonatypeNexusUrl.isNullOrBlank()) {
                 nexusUrl.set(uri(sonatypeNexusUrl))
             }
-            if (sonatypeSnapshotRepositoryUrl.isNotBlank()) {
+            if (!sonatypeSnapshotRepositoryUrl.isNullOrBlank()) {
                 snapshotRepositoryUrl.set(uri(sonatypeSnapshotRepositoryUrl))
             }
-            if (ossrhUsername.isNotBlank()) {
+            if (!ossrhUsername.isNullOrBlank()) {
                 username.set(ossrhUsername)
             }
-            if (ossrhPassword.isNotBlank()) {
+            if (!ossrhPassword.isNullOrBlank()) {
                 password.set(ossrhPassword)
             }
         }
