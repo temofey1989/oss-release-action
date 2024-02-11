@@ -34,10 +34,6 @@ val developerName: String by lazy { property("developer.name") }
 
 val developerEmail: String by lazy { property("developer.email") }
 
-val sonatypeNexusUrl: String by lazy { property("sonatype.nexus.url") }
-
-val sonatypeSnapshotRepositoryUrl: String by lazy { property("sonatype.snapshot.repository.url") }
-
 // ------------------------------------------------------------------------ #
 
 apply(plugin = "org.gradle.java-library")
@@ -81,11 +77,20 @@ configure<PublishingExtension> {
 }
 
 configure<SigningExtension> {
+    val signingKeyId: String? by project
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+
     val publishing = project.extensions["publishing"] as PublishingExtension
     sign(publishing.publications["maven"])
 }
 
 configure<io.github.gradlenexus.publishplugin.NexusPublishExtension> {
+    val sonatypeNexusUrl: String? by project
+    val sonatypeSnapshotRepositoryUrl: String? by project
+    val ossrhUsername: String? by project
+    val ossrhPassword: String? by project
     transitionCheckOptions {
         maxRetries.set(100)
         delayBetween.set(java.time.Duration.ofSeconds(5))
@@ -97,6 +102,12 @@ configure<io.github.gradlenexus.publishplugin.NexusPublishExtension> {
             }
             if (sonatypeSnapshotRepositoryUrl.isNotBlank()) {
                 snapshotRepositoryUrl.set(uri(sonatypeSnapshotRepositoryUrl))
+            }
+            if (ossrhUsername.isNotBlank()) {
+                username.set(ossrhUsername)
+            }
+            if (ossrhPassword.isNotBlank()) {
+                password.set(ossrhPassword)
             }
         }
     }
