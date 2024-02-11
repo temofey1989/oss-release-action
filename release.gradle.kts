@@ -16,7 +16,7 @@ fun property(name: String, defaultValue: String = ""): String {
     return System.getenv(envName) ?: project.findProperty(name)?.toString() ?: defaultValue
 }
 
-val description: String by lazy { property("project.description", project.description ?: "") }
+val projectDescription: String by lazy { property("project.description", project.description ?: "") }
 
 val scmUrl: String by lazy { property("scm.url") }
 
@@ -55,7 +55,7 @@ configure<PublishingExtension> {
             from(components["java"])
             pom {
                 name.set("${project.group}:${project.name}")
-                description.set(description)
+                description.set(projectDescription)
                 url.set(scmUrl)
                 licenses {
                     license {
