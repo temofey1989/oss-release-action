@@ -5,7 +5,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("io.github.gradle-nexus:publish-plugin:2.0.0-rc-1")
+        classpath("io.github.gradle-nexus:publish-plugin:2.0.0-rc-2")
     }
 }
 
